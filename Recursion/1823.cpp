@@ -23,3 +23,16 @@ public:
         return calc(a,k);
     }
 };
+
+
+BETTER CODE::
+class Solution {
+public:
+	int getWinner(int n,int k){
+		if(n==1) return 0;  //zero based indexing
+		return (getWinner(n-1,k)+k)%n; //Remove one player 
+	}
+	int findTheWinner(int n, int k) {
+		return getWinner(n,k) + 1;
+	}
+};
