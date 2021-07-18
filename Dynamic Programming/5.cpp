@@ -45,3 +45,60 @@ public:
         return finalAns;
     }
 };
+
+
+
+
+
+
+
+
+///////////SOLUTION 2
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        string newStr;
+        int n=s.size();
+        for(int i=0;i<s.size();i++)
+        {
+            newStr+=s[i];
+            if(i!=n-1)newStr+='-';
+        }
+        n=newStr.size();
+        int length=0;
+        int start=0;int end=0;
+        
+        for(int i=0;i<newStr.size();i++)
+        {
+            int middle=i;
+            int l=i-1;
+            int r=i+1;
+            while(l>=0 && r<=n-1 && newStr[l]==newStr[r])
+            {
+                l--;r++;
+            }
+            
+            l++;r--;
+            
+            int temp=r-l+1;
+            if(newStr[r]==newStr[l] && newStr[l]=='-'){
+                temp-=2;
+                l++;r--;
+            }
+            
+            if(temp>length)
+            {
+                length=r-l+1;
+                start=l;
+                end=r;
+            }
+        }
+        string finalAns;
+        for(int i=start;i<=end;i++)
+        {
+            if(newStr[i]=='-')continue;
+            else finalAns+=newStr[i];
+        }
+        return finalAns;
+    }
+};
