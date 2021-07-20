@@ -78,7 +78,59 @@ public:
     }
 };
 
+// Anshuman Solution
 
+map<char,int> freq;
+
+class Compare
+{
+public:
+    bool operator() (pair<char,int> a, pair<char,int> b)
+    {
+        if(a.second==b.second){
+            return a.first<b.first;
+        }
+        return a.second<b.second;
+    }
+};
+
+class Solution {
+public:
+    // static bool comp(char a,char b){
+    //     if(freq[a]==freq[b]){
+    //         return a>b;
+    //     }
+    //     return freq[a]>freq[b];
+    // }
+    string frequencySort(string s) {
+        priority_queue<pair<char,int>,vector<pair<char,int>>,Compare> pq;
+        freq.clear();
+        for(int i=0;i<s.length();i++){
+            freq[s[i]]++;
+        }
+        for(auto it=freq.begin();it!=freq.end();it++){
+            pq.push(make_pair(it->first,it->second));
+        }
+        //make answer
+        string ans="";
+        while(!pq.empty()){
+            pair<char,int> temp=pq.top();pq.pop();
+            for(int i=0;i<temp.second;i++){
+                ans.push_back(temp.first);
+            }
+        }
+        return ans;
+        // freq.clear();
+        // for(int i=0;i<s.length();i++){
+        //     freq[s[i]]++;
+        // }
+        // for(auto it=freq.begin();it!=freq.end();it++){
+        //     cout<<it->first<<" "<<it->second<<"\n";
+        // }
+        // sort(s.begin(),s.end(),comp);
+        // return s;
+    }
+};
 
 
 
