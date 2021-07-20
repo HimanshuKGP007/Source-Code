@@ -36,3 +36,54 @@ public:
         return finalAns;
     }
 };
+
+
+
+
+
+///////////////////CODE 2
+#define pb push_back
+#define mp make_pair
+#define fi first
+#define se second
+#define ins insert
+#define pii pair<int,int>
+#define vii vector<int>
+
+
+
+
+class Solution {
+public:
+    string frequencySort(string s) {
+        priority_queue< pair<int,char> >pq; //,vector<pair<int,char>>,greater<pair<int,char>>>pq;
+        map<char,int>m;
+        for(int i=0;i<s.size();i++){
+            auto itr=m.find(s[i]);
+            if(itr==m.end())m.ins(mp(s[i],1));
+            else itr->se++;
+        }
+        for(auto itr=m.begin();itr!=m.end();itr++)
+        {
+            pq.push(mp(itr->se,itr->fi));
+        }
+        string ans;
+        while(pq.size()>0)
+        {
+            pair<int,char>elem=pq.top();
+            pq.pop();
+            for(int i=0;i<elem.fi;i++)ans+=elem.se;
+        }
+        return ans;
+    }
+};
+
+
+
+
+
+
+
+
+
+
