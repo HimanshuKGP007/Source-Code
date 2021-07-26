@@ -57,3 +57,39 @@ public:
         return ans;
     }
 };
+
+//Anshuman Soln
+
+class Solution {
+public:
+    int ans=0;
+    void recur(vector<int>& freq,vector<int> curFreq,int size){
+        if(size==0){
+            //if(check(freq,curFreq)){
+                ans++;
+            //}
+        }
+        else{
+            for(int i=0;i<26;i++){
+                if(freq[i]>0){
+                    if(curFreq[i]<freq[i]){
+                        curFreq[i]++;
+                        recur(freq,curFreq,size-1);
+                        curFreq[i]--;
+                    }
+                }
+            }
+        }
+    }
+    int numTilePossibilities(string tiles) {
+        vector<int> freq(26,0);
+        for(int i=0;i<tiles.length();i++){
+            freq[tiles[i]-'A']++;
+        }
+        for(int i=1;i<=tiles.length();i++){
+            vector<int> curFreq(26,0);
+            recur(freq,curFreq,i);
+        }
+        return ans;
+    }
+};
