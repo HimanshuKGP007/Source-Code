@@ -52,3 +52,30 @@ public:
         return finalAns;
     }
 };
+
+// Anshuman Soln
+
+class Solution {
+public:
+    vector<vector<int>> ans;
+    void recur(vector<int>& nums,int target,int i,int pres,vector<int> cur){
+        if(i==nums.size()){
+            if(pres==target){
+                ans.push_back(cur);
+            }
+        }
+        else{
+            recur(nums,target,i+1,pres,cur);
+            while(pres<target){
+                pres+=nums[i];
+                cur.push_back(nums[i]);
+                recur(nums,target,i+1,pres,cur);
+            }
+        }
+    }
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<int> cur;
+        recur(candidates,target,0,0,cur);
+        return ans;
+    }
+};
