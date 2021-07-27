@@ -57,3 +57,30 @@ public:
         return answer;
     }
 };
+
+// ANshuman Soln
+
+class Solution {
+public:
+    vector<vector<int>> ans;
+    void recur(int curSum,vector<int> cur,int n,int k,int i){
+        if(i==10){
+            if(cur.size()==k){
+                if(curSum==n){
+                    ans.push_back(cur);
+                }
+            }
+        }
+        else{
+            recur(curSum,cur,n,k,i+1);
+            curSum+=i;
+            cur.push_back(i);
+            recur(curSum,cur,n,k,i+1);
+        }
+    }
+    vector<vector<int>> combinationSum3(int k, int n) {
+        vector<int> cur;
+        recur(0,cur,n,k,1);
+        return ans;
+    }
+};
