@@ -67,3 +67,57 @@ public:
         return dp[n-1][m-1];
     }
 };
+
+
+//////////////// 2nd Solution with Priority Queue //////////////
+
+class Compare{
+public:
+    bool operator()(pair<int,pair<int,int>> a, pair<int,pair<int,int>> b){
+        return a.first>=b.first;    
+    }
+};
+
+class Solution {
+public:
+    
+    bool isSafe(int i, int j, vector<vector<int>>& grid){
+        if(i>=0&&j>=0&&i<grid.size()&&j<grid[0].size())return true;
+        else return false;
+    }
+    
+    
+    
+    int swimInWater(vector<vector<int>>& grid) {
+        vector<vector<bool>> vis(grid.size(),vector<bool>(grid.size(), false)) ;
+        int n = grid.size();
+        int x[4] = {-1,0,0,1};
+        int y[4] = {0,-1,1,0};
+        priority_queue<pair<int,pair<int,int>>, vector<pair<int,pair<int,int>>>, Compare> pq;
+        pq.push({grid[0][0],{0,0}});
+                                 
+        while(true){
+            pair<int,pair<int,int>> curr = pq.top();
+            pq.pop();
+            cout<<curr.first<<" ";
+            while(!pq.empty()&&pq.top().first == curr.first)pq.pop();
+            
+            int i = curr.second.first;
+            int j = curr.second.second;
+            vis[i][j] = true;
+            if(curr.second.first == n-1&& curr.second.second==n-1)break;
+            for(int c = 0; c<4;c++){
+                if(isSafe(i+x[c], j+y[c], grid)&&!vis[i+x[c]][j+y[c]]){
+                    pq.push({grid[i+x[c]][j+y[c]],{i+x[c], j+y[c]}});
+                }
+            }
+        }
+        int maxi=0;
+        for(int i=0; i<n; i++){
+            for(int j=0; j<n;j++){
+                if(vis[i][j])maxi = max(maxi, grid[i][j]);
+            }
+        }
+        return maxi;
+    }
+};
